@@ -1,4 +1,5 @@
-<canvas id="signature-pad" width="500" height="200" style="border:1px solid #ccc;"></canvas>
+<canvas id="signature-pad" width="500" height="200" style="border:1px solid #ccc; touch-action: none;"></canvas>
+<br>
 <button onclick="clearCanvas()">清除</button>
 <button onclick="saveSignature()">儲存</button>
 
@@ -7,8 +8,16 @@ const canvas = document.getElementById("signature-pad");
 const ctx = canvas.getContext("2d");
 let drawing = false;
 
-canvas.onmousedown = () => drawing = true;
+// 桌面滑鼠事件
+canvas.onmousedown = (e) => {
+  drawing = true;
+  ctx.beginPath(); // 開始一筆新線
+  const rect = canvas.getBoundingClientRect();
+  ctx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
+};
+
 canvas.onmouseup = () => drawing = false;
+
 canvas.onmousemove = (e) => {
   if (!drawing) return;
   const rect = canvas.getBoundingClientRect();
@@ -16,13 +25,39 @@ canvas.onmousemove = (e) => {
   ctx.stroke();
 };
 
+// 手機觸控事件
+canvas.addEventListener("touchstart", (e) => {
+  e.preventDefault();
+  drawing = true;
+  ctx.beginPath();
+  const rect = canvas.getBoundingClientRect();
+  const touch = e.touches[0];
+  ctx.moveTo(touch.clientX - rect.left, touch.clientY - rect.top);
+});
+
+canvas.addEventListener("touchmove", (e) => {
+  if (!drawing) return;
+  const rect = canvas.getBoundingClientRect();
+  const touch = e.touches[0];
+  ctx.lineTo(touch.clientX - rect.left, touch.clientY - rect.top);
+  ctx.stroke();
+});
+
+canvas.addEventListener("touchend", () => {
+  drawing = false;
+});
+
+canvas.addEventListener("touchcancel", () => {
+  drawing = false;
+});
+
 function clearCanvas() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  const dataURL = "";
+  ctx.beginPath(); // 重設線條
 }
 
 function saveSignature() {
   const dataURL = canvas.toDataURL("image/png");
-  console.log(dataURL); // 可以 POST 上傳到後端、monday、或 Cloud Storage
+  console.log(dataURL); // 可以上傳到後端或轉存
 }
 </script>
