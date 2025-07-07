@@ -101,7 +101,7 @@ async function submitForm(e) {
   formData.append("item_id", itemId);
   formData.append("column_id", "files"); // ← 這裡記得是你 board 上的欄位 ID
 
-  const uploadRes = await fetch("/wp-json/monday-upload/v1/signature", {
+  const uploadRes = await fetch("https://km.antqtech.com/wp-json/monday-upload/v1/signature", {
     method: "POST",
     body: formData
   });
