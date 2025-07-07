@@ -1,63 +1,114 @@
-<canvas id="signature-pad" width="500" height="200" style="border:1px solid #ccc; touch-action: none;"></canvas>
-<br>
-<button onclick="clearCanvas()">清除</button>
-<button onclick="saveSignature()">儲存</button>
+
+
+<form id="onboarding-form" onsubmit="submitForm(event)">
+  <label>員工姓名 <input type="text" id="name" required></label><br>
+  <label>到職狀態
+    <select id="status">
+      <option value="未報到">未報到</option>
+      <option value="已報到">已報到</option>
+    </select>
+  </label><br>
+  <label>到職日期 <input type="date" id="startDate" required></label><br>
+
+  <p>✍️ 請在下方簽名：</p>
+  <canvas id="signature-pad" width="400" height="150" style="border:1px solid #ccc; touch-action: none;"></canvas><br>
+  <button type="button" onclick="clearCanvas()">清除簽名</button><br><br>
+
+  <button type="submit">送出表單</button>
+</form>
+
 
 <script>
 const canvas = document.getElementById("signature-pad");
 const ctx = canvas.getContext("2d");
 let drawing = false;
 
-// 桌面滑鼠事件
 canvas.onmousedown = (e) => {
   drawing = true;
-  ctx.beginPath(); // 開始一筆新線
+  ctx.beginPath();
   const rect = canvas.getBoundingClientRect();
   ctx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
 };
-
 canvas.onmouseup = () => drawing = false;
-
 canvas.onmousemove = (e) => {
   if (!drawing) return;
   const rect = canvas.getBoundingClientRect();
   ctx.lineTo(e.clientX - rect.left, e.clientY - rect.top);
   ctx.stroke();
 };
-
-// 手機觸控事件
 canvas.addEventListener("touchstart", (e) => {
   e.preventDefault();
   drawing = true;
-  ctx.beginPath();
-  const rect = canvas.getBoundingClientRect();
   const touch = e.touches[0];
+  const rect = canvas.getBoundingClientRect();
+  ctx.beginPath();
   ctx.moveTo(touch.clientX - rect.left, touch.clientY - rect.top);
 });
-
 canvas.addEventListener("touchmove", (e) => {
   if (!drawing) return;
-  const rect = canvas.getBoundingClientRect();
   const touch = e.touches[0];
+  const rect = canvas.getBoundingClientRect();
   ctx.lineTo(touch.clientX - rect.left, touch.clientY - rect.top);
   ctx.stroke();
 });
-
-canvas.addEventListener("touchend", () => {
-  drawing = false;
-});
-
-canvas.addEventListener("touchcancel", () => {
-  drawing = false;
-});
+canvas.addEventListener("touchend", () => drawing = false);
+canvas.addEventListener("touchcancel", () => drawing = false);
 
 function clearCanvas() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.beginPath(); // 重設線條
 }
 
-function saveSignature() {
-  const dataURL = canvas.toDataURL("image/png");
-  console.log(dataURL); // 可以上傳到後端或轉存
+async function submitForm(e) {
+  e.preventDefault();
+  const name = document.getElementById("name").value;
+  const status = document.getElementById("status").value;
+  const startDate = document.getElementById("startDate").value;
+  const signatureDataURL = canvas.toDataURL("image/png");
+
+  const token = "eyJhbGciOiJIUzI1NiJ9.eyJ0aWQiOjUzNTM5NTQyOSwiYWFpIjoxMSwidWlkIjo3ODA1MzkxNCwiaWFkIjoiMjAyNS0wNy0wN1QwNToyOTo0MC4wMDBaIiwicGVyIjoibWU6d3JpdGUiLCJhY3RpZCI6MzAyODA4NTksInJnbiI6ImFwc2UyIn0.Eb1qpO7f7nWLmkttwbuKESje8h00w_B5KnrUFLKCCq0";
+  const boardId = 2038809255;
+  const columnValues = {
+    text: name,
+    status: { label: status },
+    date: { date: startDate }
+  };
+
+  // 1. 建立新 item
+  const createItemRes = await fetch("https://api.monday.com/v2", {
+    method: "POST",
+    headers: {
+      "Authorization": token,
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      query: `
+        mutation {
+          create_item (board_id: ${boardId}, item_name: "${name}", column_values: ${JSON.stringify(JSON.stringify(columnValues))}) {
+            id
+          }
+        }
+      `
+    })
+  });
+  const createItemData = await createItemRes.json();
+  console.log("建立 item 回應:", createItemData);
+  const itemId = createItemData.data.create_item.id;
+
+  // 2. 將簽名圖片上傳給你自己的 WordPress 後端 proxy
+  const blob = await (await fetch(signatureDataURL)).blob();
+  const formData = new FormData();
+  formData.append("file", blob, "signature.png");
+  formData.append("item_id", itemId);
+  formData.append("column_id", "files"); // ← 這裡記得是你 board 上的欄位 ID
+
+  const uploadRes = await fetch("/wp-json/monday-upload/v1/signature", {
+    method: "POST",
+    body: formData
+  });
+
+  const uploadResult = await uploadRes.json();
+  console.log("上傳圖片結果：", uploadResult);
+
+  alert("送出成功！");
 }
 </script>
