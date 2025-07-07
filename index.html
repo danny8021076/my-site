@@ -70,7 +70,7 @@ async function submitForm(e) {
   const columnValues = {
     text: name,
     status: { label: status },
-    date: { date: startDate }
+    date4: { date: startDate }
   };
 
   // 1. 建立新 item
@@ -99,7 +99,7 @@ async function submitForm(e) {
   const formData = new FormData();
   formData.append("file", blob, "signature.png");
   formData.append("item_id", itemId);
-  formData.append("column_id", "files"); // ← 這裡記得是你 board 上的欄位 ID
+  formData.append("column_id", "file_mksmce0z"); // ← 這裡記得是你 board 上的欄位 ID
 
   const uploadRes = await fetch("https://km.antqtech.com/wp-json/monday-upload/v1/signature", {
     method: "POST",
