@@ -1,114 +1,448 @@
+<main class="qlq-service-form-wrapper">
+    <section class="form-container">
+    <div class="form-title">
+        <h2>技術服務紀錄單</h2>
+        <p>
+        請確實填寫所有欄位，表單送出後將會寄出紀錄單 PDF
+        至填寫之客戶電子郵件信箱。
+        </p>
+    </div>
 
+    <form id="monday-form" action="#" method="post" class="service-form">
+        <div class="form-row">
+        <div class="inner-col">
+            <label for="company">客戶名稱 (公司名稱)</label>
+            <input
+            id="company"
+            name="company"
+            type="text"
+            placeholder="例：XYZ 股份有限公司"
+            required
+            />
+        </div>
+        <div class="inner-col">
+            <label for="address">地址</label>
+            <input
+            id="address"
+            name="address"
+            type="text"
+            placeholder="例：台北市OO區OO街OO號O樓"
+            required
+            />
+        </div>
+        </div>
 
-<form id="onboarding-form" onsubmit="submitForm(event)">
-  <label>員工姓名 <input type="text" id="name" required></label><br>
-  <label>到職狀態
-    <select id="status">
-      <option value="未報到">未報到</option>
-      <option value="已報到">已報到</option>
-    </select>
-  </label><br>
-  <label>到職日期 <input type="date" id="startDate" required></label><br>
+        <div class="form-row">
+        <div class="inner-col">
+            <label for="name">客戶姓名</label>
+            <input
+            id="name"
+            name="name"
+            type="text"
+            placeholder="例：王小明"
+            required
+            />
+        </div>
+        <div class="inner-col">
+            <label for="phone">連絡電話</label>
+            <input
+            id="phone"
+            name="phone"
+            type="tel"
+            placeholder="例：台北市OO區OO街OO號O樓"
+            required
+            />
+        </div>
+        </div>
 
-  <p>✍️ 請在下方簽名：</p>
-  <canvas id="signature-pad" width="400" height="150" style="border:1px solid #ccc; touch-action: none;"></canvas><br>
-  <button type="button" onclick="clearCanvas()">清除簽名</button><br><br>
+        <div class="form-row">
+        <div class="inner-col">
+            <label for="email">電子郵件</label>
+            <input
+            id="email"
+            name="email"
+            type="email"
+            placeholder="例：XYZ 股份有限公司"
+            required
+            />
+        </div>
+        <div class="inner-col">
+            <label for="apply-date">申請日期</label>
+            <input
+            id="apply-date"
+            name="apply-date"
+            type="date"
+            placeholder="YYYY/MM/DD"
+            required
+            />
+        </div>
+        </div>
 
-  <button type="submit">送出表單</button>
-</form>
+        <div class="form-row">
+        <div class="inner-col select-col">
+            <label for="service-type">服務類別</label>
+            <select id="service-type" name="service-type" required>
+            <option value="">請選擇服務類別</option>
+            <option>安裝</option>
+            <option>測試</option>
+            <option>教育訓練</option>
+            <option>定期保養</option>
+            <option>一般維護服務</option>
+            <option>單次叫修服務</option>
+            <option>其他</option>
+            </select>
+            <div class="select-arrow"></div>
+        </div>
+        <div class="inner-col input-hide">
+            <label for="service-type-other">其他類別</label>
+            <input
+            id="service-type-other"
+            name="service-type-other"
+            type="text"
+            placeholder="例：資安檢測、需求訪談、..."
+            />
+        </div>
+        </div>
+        <div class="form-row">
+        <div class="inner-col">
+            <label for="requirement">工單需求描述</label>
+            <textarea
+            id="requirement"
+            name="requirement"
+            placeholder="請描述問題現況、設備型號、錯誤訊息或期望達成的目標…"
+            required
+            ></textarea>
+        </div>
+        </div>
 
+        <div class="form-row">
+        <div class="inner-col">
+            <p>優先級</p>
+            <div class="priority" role="radiogroup">
+            <div class="priority-radio">
+                <input
+                type="radio"
+                id="p-low"
+                name="priority"
+                value="低"
+                required
+                />
+                <label for="p-low">低</label>
+            </div>
+            <div class="priority-radio">
+                <input type="radio" id="p-mid" name="priority" value="中" />
+                <label for="p-mid">中</label>
+            </div>
+            <div class="priority-radio">
+                <input type="radio" id="p-high" name="priority" value="高" />
+                <label for="p-high">高</label>
+            </div>
+            <div class="priority-radio">
+                <input
+                type="radio"
+                id="p-urgent"
+                name="priority"
+                value="緊急"
+                />
+                <label for="p-urgent">緊急</label>
+            </div>
+            </div>
+        </div>
+        </div>
+
+        <div class="form-row">
+        <div class="inner-col">
+            <label for="requirement">服務內容</label>
+            <textarea
+            id="service"
+            name="service"
+            placeholder="由工程師服務完成後填寫、補充：安裝、設定項目、測試結果、備註…"
+            required
+            ></textarea>
+        </div>
+        </div>
+
+        <div class="form-row">
+        <div class="inner-col">
+            <label for="arrive-time">到場時間</label>
+            <input
+            id="arrive-time"
+            name="arrive-time"
+            type="datetime-local"
+            required
+            />
+        </div>
+        <div class="inner-col">
+            <label for="complete-time">完成時間</label>
+            <input
+            id="complete-time"
+            name="complete-time"
+            type="datetime-local"
+            required
+            />
+        </div>
+        </div>
+
+        <!-- --------客戶、工程師簽章 canvas（前端無互動，後端接續開發）-------- -->
+        <div class="form-row">
+        <div class="inner-col">
+            <p>
+            客戶簽章
+            </p>
+            <div class="sign-box">
+            <canvas id="client-sign-canvas" class="signature-canvas"></canvas>
+            <div class="sign-placeholder">
+                簽名區佔位（前端無互動，後端接續開發）
+            </div>
+            <button type="button" class="button-mini" data-clear="client-sign-canvas">清除</button>
+            </div>
+        </div>
+
+        <div class="inner-col">
+            <p>
+            工程師簽章
+            </p>
+            <div class="sign-box">
+            <canvas id="engineer-sign-canvas" class="signature-canvas"></canvas>
+            <div class="sign-placeholder">
+                簽名區佔位（前端無互動，後端接續開發）
+            </div>
+            <button type="button" class="button-mini" data-clear="engineer-sign-canvas">清除</button>            
+            </div>
+        </div>
+        </div>
+        <!-- --------客戶、工程師簽章 canvas（前端無互動，後端接續開發）-------- -->
+
+        <div class="action-row">
+        <button type="submit" class="button-primary">送出紀錄單</button>
+        </div>
+    </form>
+    </section>
+</main>
+<script>
+    // 準備表單內容，抓取輸入並提交
+    function parseDateTimeLocal(v) {
+        if (!v) return null;
+        return v.replace("T", " ") + ":00"; // 把 "2025-09-16T14:30" 轉 "2025-09-16 14:30:00"
+    }
+    // 提交按鈕按下去，之後要執行的動作
+    document.getElementById('monday-form').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const formData = new FormData(this);
+        const messageDiv = document.getElementById('monday-form-message');
+        const submitBtn = this.querySelector('button[type="submit"]');
+        
+        messageDiv.innerHTML = '<p>正在提交資料，請稍候...</p>';
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '提交中...';
+
+        // 服務類別：如果選「其他」就用 text 欄位內容
+        const serviceType = formData.get('service-type');
+        const serviceTypeOther = formData.get('service-type-other') || '';    
+        //const finalServiceType = (serviceType === '其他' && serviceTypeOther) ? serviceTypeOther : serviceType;
+
+        const arrivaltime = parseDateTimeLocal(formData.get('arrive-time'));
+        const completetime = parseDateTimeLocal(formData.get('complete-time'));
+        try {
+            //提交表單資料
+            const res = await fetch('https://km.antqtech.com/wp-json/monday-form/v1/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    company: formData.get('company'),
+                    address: formData.get('address'),
+                    name: formData.get('name'),
+                    telphone: formData.get('phone'),
+                    email: formData.get('email'),
+                    applydate: formData.get('apply-date'),
+                    servicetype: formData.get('service-type'),
+                    serviceothertype: formData.get('service-type-other'),
+                    describe: formData.get('requirement'),
+                    priority: formData.get("priority"),
+                    service: formData.get('service'),
+                    arrivaltime: parseDateTimeLocal(formData.get('arrive-time')),
+                    completetime: parseDateTimeLocal(formData.get('complete-time'))
+                })
+            });
+            const result = await res.json();
+
+            // 
+
+            if (!result.success || !result.item_id) {
+                throw new Error(result.message || '建立 item 失敗');
+            }
+
+            const itemId = result.item_id;
+
+            const canvas = document.getElementById("signature-pad");
+            const signatureBlob = await (await fetch(canvas.toDataURL("image/png"))).blob();
+
+            const uploadData = new FormData();
+            uploadData.append('file', signatureBlob, 'signature.png');
+            uploadData.append('item_id', itemId);
+            uploadData.append('column_id', 'file_mksmfhzt');
+
+            const uploadRes = await fetch('/wp-json/monday-upload/v1/signature', {
+                method: 'POST',
+                body: uploadData
+            });
+            const uploadResult = await uploadRes.json();
+
+            if (uploadResult.errors) {
+                throw new Error('簽名圖上傳失敗');
+            }
+
+            messageDiv.innerHTML = '<p style="color: green;">✅ 表單與簽名已成功送出！</p>';
+            this.reset();
+            const ctx = canvas.getContext("2d");
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        } catch (err) {
+            console.error(err);
+            messageDiv.innerHTML = `<p style="color:red;">❌ ${err.message}</p>`;
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '提交資料';
+        }
+    });
+</script>
 
 <script>
-const canvas = document.getElementById("signature-pad");
-const ctx = canvas.getContext("2d");
-let drawing = false;
+    // 表單其他欄元件: 控制表單其他欄位是否需要輸入
+    const select     = document.getElementById('service-type');
+    const otherInput = document.getElementById('service-type-other');
+    const otherWrap  = otherInput.closest('.inner-col');
 
-canvas.onmousedown = (e) => {
-  drawing = true;
-  ctx.beginPath();
-  const rect = canvas.getBoundingClientRect();
-  ctx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
-};
-canvas.onmouseup = () => drawing = false;
-canvas.onmousemove = (e) => {
-  if (!drawing) return;
-  const rect = canvas.getBoundingClientRect();
-  ctx.lineTo(e.clientX - rect.left, e.clientY - rect.top);
-  ctx.stroke();
-};
-canvas.addEventListener("touchstart", (e) => {
-  e.preventDefault();
-  drawing = true;
-  const touch = e.touches[0];
-  const rect = canvas.getBoundingClientRect();
-  ctx.beginPath();
-  ctx.moveTo(touch.clientX - rect.left, touch.clientY - rect.top);
-});
-canvas.addEventListener("touchmove", (e) => {
-  if (!drawing) return;
-  const touch = e.touches[0];
-  const rect = canvas.getBoundingClientRect();
-  ctx.lineTo(touch.clientX - rect.left, touch.clientY - rect.top);
-  ctx.stroke();
-});
-canvas.addEventListener("touchend", () => drawing = false);
-canvas.addEventListener("touchcancel", () => drawing = false);
+    function toggleOther() {
+        const isOther = ['other', '其他'].includes(select.value);
+        otherWrap.classList.toggle('input-hide', !isOther);
+        otherWrap.setAttribute('input-hide', String(!isOther));
 
-function clearCanvas() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-}
-
-async function submitForm(e) {
-  e.preventDefault();
-  const name = document.getElementById("name").value;
-  const status = document.getElementById("status").value;
-  const startDate = document.getElementById("startDate").value;
-  const signatureDataURL = canvas.toDataURL("image/png");
-
-  const token = "eyJhbGciOiJIUzI1NiJ9.eyJ0aWQiOjUzNTM5NTQyOSwiYWFpIjoxMSwidWlkIjo3ODA1MzkxNCwiaWFkIjoiMjAyNS0wNy0wN1QwNToyOTo0MC4wMDBaIiwicGVyIjoibWU6d3JpdGUiLCJhY3RpZCI6MzAyODA4NTksInJnbiI6ImFwc2UyIn0.Eb1qpO7f7nWLmkttwbuKESje8h00w_B5KnrUFLKCCq0";
-  const boardId = 2038809255;
-  const columnValues = {
-    text: name,
-    status: { label: status },
-    date4: { date: startDate }
-  };
-
-  // 1. 建立新 item
-  const createItemRes = await fetch("https://api.monday.com/v2", {
-    method: "POST",
-    headers: {
-      "Authorization": token,
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      query: `
-        mutation {
-          create_item (board_id: ${boardId}, item_name: "${name}", column_values: ${JSON.stringify(JSON.stringify(columnValues))}) {
-            id
-          }
+        if (isOther) {
+            // 若需要，顯示時自動聚焦
+            // otherInput.focus();
+        } else {
+            otherInput.value = '';
         }
-      `
-    })
-  });
-  const createItemData = await createItemRes.json();
-  console.log("建立 item 回應:", createItemData);
-  const itemId = createItemData.data.create_item.id;
+    }
 
-  // 2. 將簽名圖片上傳給你自己的 WordPress 後端 proxy
-  const blob = await (await fetch(signatureDataURL)).blob();
-  const formData = new FormData();
-  formData.append("file", blob, "signature.png");
-  formData.append("item_id", itemId);
-  formData.append("column_id", "file_mksmce0z"); // ← 這裡記得是你 board 上的欄位 ID
+    // 初始化：頁面載入時跑一次，並綁定 change
+    document.addEventListener('DOMContentLoaded', () => {
+        toggleOther();                 // 初始化
+        select.addEventListener('change', toggleOther);
+    });
+</script>
 
-  const uploadRes = await fetch("https://km.antqtech.com/wp-json/monday-upload/v1/signature", {
-    method: "POST",
-    body: formData
-  });
+<script>
+    /**
+     * 初始化單一簽名板
+     * @param {HTMLCanvasElement} canvas
+     * @param {{lineWidth?:number, strokeStyle?:string}} [opts]
+     * @returns {{ clear():void, toDataURL(type?:string, quality?:number):string, toBlob(cb:Function, type?:string, quality?:number):void }}
+     */
+    function setupSignaturePad(canvas, opts = {}) {
+        const ctx = canvas.getContext('2d');
+        const DPR = window.devicePixelRatio || 1;
+        let drawing = false;
 
-  const uploadResult = await uploadRes.json();
-  console.log("上傳圖片結果：", uploadResult);
+        // 視覺尺寸（CSS）請用 CSS 控；這裡把實際像素調整成等比例，避免鋸齒
+        function resizeToDPR() {
+            const { width: cssW, height: cssH } = canvas.getBoundingClientRect();
+            canvas.width  = Math.max(1, Math.round(cssW * DPR));
+            canvas.height = Math.max(1, Math.round(cssH * DPR));
+            ctx.scale(DPR, DPR);
+            ctx.lineCap   = 'round';
+            ctx.lineJoin  = 'round';
+            ctx.lineWidth = opts.lineWidth ?? 2.5;
+            ctx.strokeStyle = opts.strokeStyle ?? '#111';
+        }
 
-  alert("送出成功！");
-}
+        // 把指標座標轉為 canvas 內座標（以 CSS 像素為基準）
+        function getPos(e) {
+            const r = canvas.getBoundingClientRect();
+            console.log({ x: (e.clientX - r.left), y: (e.clientY - r.top) })        
+            return { x: (e.clientX - r.left), y: (e.clientY - r.top) };
+        }
+
+        function onPointerDown(e) {
+            // 僅處理主按鍵/觸控
+            if (e.button !== undefined && e.button !== 0) return;
+            e.preventDefault();
+            canvas.setPointerCapture?.(e.pointerId);
+            drawing = true;
+            ctx.beginPath();
+            const p = getPos(e);
+            ctx.moveTo(p.x, p.y);
+        }
+
+        function onPointerMove(e) {
+            if (!drawing) return;
+            e.preventDefault();
+            const p = getPos(e);
+            ctx.lineTo(p.x, p.y);
+            ctx.stroke();
+        }
+
+        function onPointerUpCancel(e) {
+            if (!drawing) return;
+            e.preventDefault();
+            drawing = false;
+            canvas.releasePointerCapture?.(e.pointerId);
+        }
+
+        // 初始化
+        //resizeToDPR();
+        // 窗口/容器尺寸變化時重新調整像素密度（注意：會清空畫面；若需要保留內容需額外做暫存/重繪）
+        //window.addEventListener('resize', resizeToDPR);
+
+        // 綁定 Pointer 事件（涵蓋滑鼠與觸控）
+        canvas.addEventListener('pointerdown', onPointerDown, { passive: false });
+        canvas.addEventListener('pointermove', onPointerMove, { passive: false });
+        canvas.addEventListener('pointerup', onPointerUpCancel, { passive: false });
+        canvas.addEventListener('pointercancel', onPointerUpCancel, { passive: false });
+        canvas.addEventListener('pointerleave', onPointerUpCancel, { passive: false });
+
+        // 阻止在觸控上滑造成頁面捲動
+        canvas.style.touchAction = 'none';
+
+        // 導出與清除 API
+        function clear() {
+            const { width, height } = canvas;
+            // 因為有 scale(DPR,DPR)，用清除 + 重設 transform
+            ctx.setTransform(1,0,0,1,0,0);
+            ctx.clearRect(0, 0, width, height);
+            //ctx.scale(DPR, DPR);
+            ctx.lineCap   = 'round';
+            ctx.lineJoin  = 'round';
+            ctx.lineWidth = opts.lineWidth ?? 2.5;
+            ctx.strokeStyle = opts.strokeStyle ?? '#111';
+        }
+
+        return {
+            clear,
+            toDataURL: (type, quality) => canvas.toDataURL(type, quality),
+            toBlob: (cb, type, quality) => canvas.toBlob(cb, type, quality),
+        };
+    }
+
+    // ===== 啟動兩個簽名板 =====
+    // 提醒：請用 CSS 設定 canvas 尺寸，例如：.signature-canvas{width:300px;height:150px;border:1px solid #ccc;border-radius:8px;}
+    const clientPad   = setupSignaturePad(document.getElementById('client-sign-canvas'));
+    const engineerPad = setupSignaturePad(document.getElementById('engineer-sign-canvas'));
+
+    // 綁定清除按鈕（用 data-clear 指向 canvas id）
+    document.querySelectorAll('[data-clear]').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const targetId = btn.getAttribute('data-clear');
+            const cvs = document.getElementById(targetId);
+            if (!cvs) return;
+            if (cvs.id === 'client-sign-canvas') clientPad.clear();
+            if (cvs.id === 'engineer-sign-canvas') engineerPad.clear();
+        });
+    });
+
+    // 如需上傳，可用 toDataURL 或 toBlob：
+    // clientPad.toBlob(blob => { /* 上傳 blob 到你的 WP 後端，再 add_file_to_column */ }, 'image/png');
 </script>
